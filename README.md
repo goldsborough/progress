@@ -38,6 +38,8 @@ done
 
 Here, we defined the number of steps our program was going to make and then included the progress script in our script. This made one important function available: `progress_start`. You can call it whenever you want to increment your progress bar, and the script will add one unit to the progress bar.
 
+![demo](https://raw.githubusercontent.com/goldsborough/progress/master/other/example.gif?token=AGIcm7AzP2_mzC7Kin7LGZ7sJOJoNdHEks5YZTH3wA%3D%3D)
+
 ## Advanced Usage
 
 `progress` is made to be very configurable. Here is a list of variables you can tweak, by setting them before you source the script:
