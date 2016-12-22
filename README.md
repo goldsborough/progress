@@ -1,6 +1,5 @@
 # progress
 
-
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://goldsborough.mit-license.org)
 
 ```
@@ -13,11 +12,6 @@
 ```
 
 `progress`, the pluggable command line progress bar.
-
-Queue
-Zeitplan (Dokumentation)
-Features
-Testing
 
 ## Description
 

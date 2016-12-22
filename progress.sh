@@ -88,7 +88,7 @@ function ceiling_divide {
 function string_of_length {
   # Space-separate a sequene of N numbers and
   # replace each number with the wanted character
-  seq $1 | tr '\n' ' ' | sed -r "s/[0-9]+ /$2/g"
+  seq $1 | tr '\n' ' ' | gsed -r "s/[0-9]+ /$2/g"
 }
 
 function move_up {
@@ -140,7 +140,7 @@ progress_indicator_format=${PROGRESS_INDICATOR_FORMAT:-31}
 progress_percent_format=${PROGRESS_PERCENT_FORMAT:-35}
 
 # The symbol for actual progress made
-progress_symbol=${PROGRESS_SYMBOL:-'\u25AC'}
+progress_symbol=${PROGRESS_SYMBOL:-'\xE2\x96\xAC'}
 progress_symbol=$(echo -en "$progress_symbol")
 
 # The escape code for the progresss format
@@ -204,18 +204,18 @@ function progress_step {
 
   if [ $remainder -eq 0 ]; then
     # Replace one unit of the filler with one unit of progress
-    progress_sed_command="s/$progress_fill_unit/$(echo $progress_unit)/"
+    progress_gsed_command="s/$progress_fill_unit/$progress_unit/"
 
     # If the fill symbol equals the progress symbol, we need to specify after
     # which match to start replacing, else we'll just match the first replacement
     # we made (since we'd be replacing e.g. xxxx with \033[31mx\033[0mxxx which
     # still contains x as the first text character, so next time we'd get
     # \033[31m\033[31mx\033[0m\033[0m instead of replacing the next fill character)
-    if [ "$progress_fill_symbol" == "$progress_symbol" ]; then
-        ((progress_index=progress_step / progress_divisor))
-        progress_sed_command="${progress_sed_command}${progress_index}"
+    if [ "$progress_fill_symbol" = "$progress_symbol" ]; then
+        ((progress_index = progress_step / progress_divisor))
+        progress_gsed_command="${progress_gsed_command}${progress_index}"
     fi
-    progress_line="$(echo -e "$progress_line" | sed "$progress_sed_command")"
+    progress_line="$(echo -e "$progress_line" | gsed "$progress_gsed_command")"
   fi
 
   # We must always increment on the last step
@@ -223,7 +223,7 @@ function progress_step {
       ((progress_line_number += ${1:-1}))
   # Dont' increment when we've reached the end of the terminal
   elif [ $progress_line_number -lt $progress_max_lines ]; then
-    # If nothing is passed, we increment by one (default), else if it is
+    # If nothing is pasgsed, we increment by one (default), else if it is
     # -1, we do nothing (don't increment), else (if it's nonzero) we increment
     # by the given amount.
     if [ -z $1 ]; then
@@ -247,7 +247,7 @@ function progress_end {
     return 0
   fi
 
-  progress_line="$(echo -en "$progress_line" | sed -r 's/$(echo $progress_fill_symbol)/'$progress_symbol'/g')"
+  progress_line="$(echo -en "$progress_line" | gsed -r 's/$(echo $progress_fill_symbol)/'$progress_symbol'/g')"
   if [ $1 ]; then
     ((progress_line_number += $1))
   fi
