@@ -88,7 +88,7 @@ function ceiling_divide {
 function string_of_length {
   # Space-separate a sequene of N numbers and
   # replace each number with the wanted character
-  seq $1 | tr '\n' ' ' | gsed -r "s/[0-9]+ /$2/g"
+  seq $1 | tr '\n' ' ' | perl -pe "s/[0-9]+ /$2/g"
 }
 
 function move_up {
@@ -215,7 +215,7 @@ function progress_step {
         ((progress_index = progress_step / progress_divisor))
         progress_gsed_command="${progress_gsed_command}${progress_index}"
     fi
-    progress_line="$(echo -e "$progress_line" | gsed "$progress_gsed_command")"
+    progress_line="$(echo -e "$progress_line" | sed "$progress_gsed_command")"
   fi
 
   # We must always increment on the last step
@@ -223,7 +223,7 @@ function progress_step {
       ((progress_line_number += ${1:-1}))
   # Dont' increment when we've reached the end of the terminal
   elif [ $progress_line_number -lt $progress_max_lines ]; then
-    # If nothing is pasgsed, we increment by one (default), else if it is
+    # If nothing is passed, we increment by one (default), else if it is
     # -1, we do nothing (don't increment), else (if it's nonzero) we increment
     # by the given amount.
     if [ -z $1 ]; then
@@ -247,7 +247,7 @@ function progress_end {
     return 0
   fi
 
-  progress_line="$(echo -en "$progress_line" | gsed -r 's/$(echo $progress_fill_symbol)/'$progress_symbol'/g')"
+  progress_line="$(echo -en "$progress_line" | perl -pe 's/$(echo $progress_fill_symbol)/'$progress_symbol'/g')"
   if [ $1 ]; then
     ((progress_line_number += $1))
   fi
