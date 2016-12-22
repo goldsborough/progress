@@ -46,7 +46,7 @@ Here, we defined the number of steps our program was going to make and then incl
 
 ##### `PROGRESS_WIDTH`
 
-How many characters the progress bar should be wide. The PROGRESS_WIDTH may be larger or smaller than the number of steps and the progress will adapt itself. Note that when the progress_width is not divisible by the number_of_steps, or the other way around, you must call progress_end to fill up the progress bar at the end of your program.
+How many characters the progress bar should be wide. The `PROGRESS_WIDTH` may be larger or smaller than the number of steps and the progress will adapt itself. Note that when the `PROGRESS_WIDTH` is not divisible by the `PROGRESS_NUMBER_OF_STEPS`, or the other way around, you *must* call `progress_end` instead of `progress_step` at the very end, to fill up the progress bar.
 
 ##### `PROGRESS_SYMBOL`
 
@@ -54,15 +54,15 @@ The character to use for progress. It defaults to the unicode character `\u25AC`
 
 ##### `PROGRESS_FILL_SYMBOL`
 
-The character to use for progress not yet made. It defaults to the vale of `PROGRESS_SYMBOL` (but with different default color).
+The character to use for progress not yet made. It defaults to the value of `PROGRESS_SYMBOL` (but with different default color).
 
 ##### `PROGRESS_FORMAT`
 
-A semi-colon-delimited list of UNIX terminal format codes to style the PROGRESS_SYMBOL.
+A semi-colon-delimited list of UNIX terminal format codes to style the `PROGRESS_SYMBOL`, e.g. `1;31` for red and bold.
 
 ##### `PROGRESS_FILL_FORMAT`
 
-A semi-colon-delimited list of UNIX terminal format codes to style the PROGRESS_FILL_SYMBOL.
+A semi-colon-delimited list of UNIX terminal format codes to style the `PROGRESS_FILL_SYMBOL`.
 
 ##### `PROGRESS_DEFER`
 
@@ -70,7 +70,7 @@ Whether to start the progress bar immediately when sourced or wait until progres
 
 ##### `PROGRESS_INDICATOR_FORMAT`
 
-A semi-colon-delimited list of UNIX terminal format codes to use for the step indicator (step/number of steps).
+A semi-colon-delimited list of UNIX terminal format codes to use for the step indicator (`step/number of steps`).
 
 ##### `PROGRESS_PERCENT_FORMAT`
 
@@ -82,11 +82,11 @@ Whether or not to have the progress bar stay sticky on the top of the terminal w
 
 ##### `progress_line_number`
 
-`progress` exposes the internal variable `progress_line_number`, which you can modify yourself if you print more than one line of text in one step, for example (progress assumes by default that one step = one line). You can also set the number of lines printed since the last step by passing that number to `progress_step` as an argument (it defaults to 1).
+`progress` exposes the internal variable `progress_line_number`, which you can modify yourself if you print more than one line of text in one step (`progress` assumes by default that one step = one line). You can also set the number of lines printed since the last step by passing that number to `progress_step` as an argument (it defaults to 1).
 
 ##### Formatting
 
-You can find a list of "UNIX terminal format codes" here: http://misc.flogisoft.com/bash/tip_colors_and_formatting. These codes allow you to change the foreground and background color, as well as make text bold or even hide something alltogether (for example if you don't want the percent, you can use format code 8).
+You can find a list of "UNIX terminal format codes" as mentioned above here: http://misc.flogisoft.com/bash/tip_colors_and_formatting. These codes allow you to change the foreground and background color, as well as make text bold or even hide something all together (for example if you don't want the percent, you can use format code 8 to hide it).
 
 ## LICENSE
 
